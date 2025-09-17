@@ -1,0 +1,528 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Khóa học.....</title>
+    <link rel="stylesheet" href="home1.css">
+   <link rel="stylesheet" href="font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="header.js"></script>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        // alert("I am ready")
+        // khi click vào đặt mua
+        $(".btn-buy").click(function(){
+            var p=$(this).parent();
+            var pImg=p.find(".product-img").attr("src");
+            var pName=p.find(".product-name").text();
+            var pPrice =p.find(".product-price").text();
+
+            var product ={
+               "name":pName,
+               "image": pImg,
+               "price":pPrice,
+            };// alert(pImg+pName+pPrice);
+            var orderDetails=sessionStorage.getItem("order");
+            if(orderDetails !=null)
+                orderDetails +=","+ JSON.stringify(product);
+            else
+                orderDetails = JSON.stringify(product);
+            
+                // alert(orderDetails);
+            //thêm sản phẩm vừa chọn vào session
+            sessionStorage.setItem("order", orderDetails);
+
+            //tăng số lượng ở giỏ hàng
+            var c = $(".cart-amount").text();
+            var amount = Number(c)+1;
+            $(".cart-amount").text(amount);
+            
+        });
+    });
+    </script>
+    
+</head>
+<body>
+    <div id="header">
+        <div id="top-header">
+            <div class="logo">
+                <img src="your-logo.png" alt="logo" height="90px" style="width:60%;margin-top:9px">
+            </div>
+            <div id="search">
+                <input type=" text" name="" placeholder="Search..." class="search-text" />
+                <button class="btn-search">
+                    <i class="fas fa-search"></i>
+                    
+                </button>
+            </div>
+            <div id="user">
+                <div class="account">
+                    <ul>
+                        <li><a href="#">
+                                <div id="icon-user">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="sign-up">
+                                    <span> Đăng nhập / Đăng ký </span> <br>
+                                    Tài khoản <i style="font-size: 20px;" class="fas fa-caret-down"></i>
+                                </div>
+                            </a>
+                            <ul class="user2">
+
+
+                                <a href="login.html">
+                                    <li class="dn"> Đăng nhập</li>
+                                </a>
+                                <a href="Register.html">
+                                    <li class="ttk">Tạo tài khoản</li>
+                                </a>
+                                
+                                <a
+                                    href="https://www.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNjE4ODU4MjQ4LCJjYWxsc2l0ZV9pZCI6MzgxMjI5MDc5NTc1OTQ2fQ%3D%3D">
+                                    <li class="fb"><i class="fab fa-facebook-square"
+                                            style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập băng facebook</li>
+                                </a>
+
+                                <a href="https://mail.google.com/mail/u/0/?pli=1#inbox">
+                                    <li class="gmail"><i class="fab fa-google-plus-g"
+                                            style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập bằng gmail</li>
+                                </a>
+
+                                <a href="https://id.zalo.me/account?continue=https%3A%2F%2Fchat.zalo.me%2F">
+                                    <li class="zalo">
+                                        <img src="image/Zalo1.jpg" alt="#">
+                                        Đăng nhập bằng zalo
+                                    </li>
+                                </a>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cart">
+                    <a href="cart.html">
+                        <i style="size: 100%; font-size: 30;color: white;" class="fas fa-cart-plus"></i>
+                        giỏ hàng
+                        <label class="cart-amount">0</label>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div id="end-header">
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">TRANG CHỦ</a></li>
+                    <li><a href="#">KHÓA HỌC</a></li>
+                    <!-- <li><a href="#">PHỤ KIỆN</a></li> -->
+                    <li><a href="https://codelearn.io/learning" target="_blank">TIN TỨC</a></li>
+                    <li><a href="introduce.html">GIỚI THIỆU</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Phần thân -->
+    <div id="mid">
+        <div id="navigation">
+            <div id="slideshow">
+                <img src="banner1.jpg" />
+				<img src="banner2.jpg" />
+				<img src="banner3.jpg" />
+            </div>
+            <script>
+                autoSlide();
+            </script>
+        </div>
+
+        <!-- chống tràn -->
+        <div class="clearfix"></div>
+
+        <div id="content">
+
+            <div id="row">
+                <h2 style=" font-weight: 200;">Khóa học Nổi Bật
+                    <img style="width: 21px;" src="https://frontend.tikicdn.com/_desktop-next/static/img/flash.gif"
+                        alt="flash deal">
+                </h2>
+                <hr style="color: #EEEEEE; size: 1px;">
+                <!-- khóa học nổi bật -->
+
+             
+                <div class="products">
+                    <ul>
+                        
+                        <li>
+                            <a> 
+                                
+                                <a href="chitietsanpham.html">
+                                    <h4><label class="product-name">Khóa học Python - cơ bản</label></h4>
+                                   
+                                    <div class="box-img">
+                                        <img class="product-img" src="6.jpg" >
+                                    </div>
+                                
+                                </a>
+                                <!-- <div class="product-detail"> -->
+                                    <br>
+                                    <p class="price1  product-price">599,000đ</p>
+                                    <p class="review">
+                                        <span><strike>900,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="chitietsanpham.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            
+                            
+                            </a>
+                        
+                        </li>
+                    
+                        <li>
+                            <a>
+                                <a href="CTSP-1.html">
+                                    <h4><label class="product-name">Khóa học C# cho người mới bắt đầu</label></h4>
+                                    
+                                    <div class="box-img" >
+                                        <img class="product-img" src="5.jpg">
+                                    </div>
+                                </a>
+
+                                    <p class="price1 product-price">499,000đ</p>
+                                    <p class="review">
+                                        <span><strike>700,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-1.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-2.html">
+                                    <h4><label class="product-name">Lập trình C++ cơ bản</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="3.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+                                    <br>
+                                    <p class="price1 product-price">499,000đ</p>
+                                    <p class="review">
+                                        <span><strike>720,000đ</strike></span>
+
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-2.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-3.html">
+                                    <h4><label class="product-name">Khóa học SQL - cơ bản</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="1.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+
+                                    <p class="price1 product-price">999,000đ</p>
+                                    <p class="review">
+                                        <span><strike>1,500,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-3.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-4.html">
+                                    <h4><label class="product-name">Khóa học JavaScript cho người mới bắt đầu</label></h4>
+                                    <div class="box-img">
+                                        <img  class="product-img" src="2.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+
+                                    <p class="price1 product-price">500,000đ</p>
+                                    <p class="review">
+                                        <span><strike>800,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-4.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li>
+                            <a>
+                                <a href="CTSP-5.html">
+                                    <h4><label class="product-name">Khóa học C# - cơ bản</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="7.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+
+                                    <p class="price1 product-price">299,000đ</p>
+                                    <p class="review">
+                                        <span><strike>500,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-5.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-6.html">
+                                    <h4><label class="product-name">Khóa học truyền thông và mạng máy tính</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="4.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+                                    <br>
+                                    <p class="price1 product-price">800,000đ</p>
+                                    <p class="review">
+                                        <span><strike>1,000,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-6.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-7.html">
+                                    <h4><label class="product-name">Thiết kế UI/UX</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="8.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+                                    <br>
+                                    <p class="price1 product-price">450,000đ</p>
+                                    <p class="review">
+                                        <span><strike>800,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-7.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-8.html">
+                                    <h4><label class="product-name">Thiết kế web cơ bản</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="9.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+                                    <br>
+                                    <p class="price1 product-price">699,000đ</p>
+                                    <p class="review">
+                                        <span><strike>1,200,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-8.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-9.html">
+                                    <h4><label class="product-name">Khóa học Python hướng đối tượng(OOP)</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="10.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+                                    <br>
+                                    <p class="price1 product-price">599,000đ</p>
+                                    <p class="review">
+                                        <span><strike>1,100,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-9.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <h2 style=" font-weight: 200;margin-top: 20px;">Khóa học Mới</h2>
+                <hr style="color: #EEEEEE; size: 1px;">
+                <div class="products">
+                    <ul>
+                        <li>
+                            <a>
+                                <a href="CTSP-10.html">
+                                    <h4><label class="product-name">Khóa hoc Python- nâng cao</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="11.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+                                    <br>
+                                    <p class="price1 product-price">799,000đ</p>
+                                    <p class="review">
+                                        <span><strike>1,250,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-10.html"> <input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-11.html">
+                                    <h4><label class="product-name">Khóa học SQL- nâng cao</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="12.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div c lass="product-detail"> -->
+                                    <br>
+                                    <p class="price1 product-price">999,000đ</p>
+                                    <p class="review">
+                                        <span><strike>1,520,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-11.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-12.html">
+                                    <h4><label class="product-name">Khóa học C#- nâng cao</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="13.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+                                    <br>
+                                    <p class="price1 product-price">1,000,000đ</p>
+                                    <p class="review">
+                                        <span><strike>1,600,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-12.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-13.html">
+                                    <h4><label class="product-name">Khóa học HTML-CSS-JS nâng cao</label></h4>
+                                    <div class="box-img">
+                                        <img class="product-img" src="14.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+                                    <br>
+                                    <p class="price1 product-price">1,299,000đ</p>
+                                    <p class="review">
+                                        <span><strike>1,900,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-13.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <a href="CTSP-14.html">
+                                    <h4><label class="product-name">Khóa học C++ nâng cao</label></h4>
+                                    <div class="box-img"> 
+                                        <img class="product-img" src="15.jpg">
+                                    </div>
+                                </a>
+                                <!-- <div class="product-detail"> -->
+
+                                    <p class="price1 product-price">999,000đ</p>
+                                    <p class="review">
+                                        <span><strike>1,200,000đ</strike></span>
+                                    </p>
+                                    <input class="btn-buy" type="button" value="Thêm vào giỏ" />
+                                    <a href="CTSP-14.html"><input class="btn-view" type="button" value="Chi tiết" /></a>
+                                <!-- </div> -->
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end -->
+    <div class="clearfix"></div>
+    <hr style="color: #EEEEEE; size: 1px;">
+    <div class="footer">
+        <div class="container-web">
+
+            <div style="padding-top: 15px" class="footer-main">
+                <div class="service footer1">
+                    <ul>
+                        <li>
+                            <div class="sales">
+                                <h5>Liên kết</h5>
+                                <p><a href="#">Khóa học khuyến mại</a></p>
+                                <p><a href="#">Khóa học nổi bật</a></p>
+                                <p><a href="#">Tất cả khóa học</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Hỗ trợ</h5>
+                                <p><a href="trangchu.html">Trang chủ</a></p>
+                                <p><a href="#">Khóa học </a></p>
+                                <p><a href="tintuc.html">Tin tức</a></p>
+                                <p><a href="gioithieu.html">Giới thiệu</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Dịch vụ</h5>
+                                <p><a href="#">Tìm kiếm</a></p>
+                                <p><a href="gioithieu.html">Giới thiệu</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Liên hệ</h5>
+                                <a style="color:#fff" href="#"><i class="fa fa-phone"> 0352463862</i>
+                                    <p>Đ/C:Mỹ Hào-Hưng Yên</p>
+                                    <p><i class="far fa-envelope"></i>TN05@gmail.com</p>
+                            </div>
+                            <div id="icon-footer">
+                                <a class="_blank" href="https://www.facebook.com/thao.nguyen.857201?locale=vi_VN" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fa fa-rss"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-youtube"></i></a>
+                                <a class="_blank" href="https://mail.google.com/mail/u/0/?pli=1#inbox?compose=GTvVlcSBnpsJhVkVXmnpmJBgZsdwFtHTQSTvJDnXWSmcsSqdnXDTKbznNfhFDXZRjnZBXqhGLZHxF" target="_blank"><i class="fab fa-google-plus-g"></i></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right">
+            <div class="container-web">
+                <p style="text-align: center; color: #444444;">Copyright © 2025 by<a href="https://www.facebook.com/thao.nguyen.857201?locale=vi_VN">
+                        Thảo Nguyên </a></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
