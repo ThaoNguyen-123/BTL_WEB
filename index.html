@@ -6,43 +6,61 @@
     <title>Khóa học.....</title>
     <link rel="stylesheet" href="home1.css">
    <link rel="stylesheet" href="font-awesome.css">
+   <script src="cart-header.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="header.js"></script>
     <script src="jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function(){
-        // alert("I am ready")
-        // khi click vào đặt mua
-        $(".btn-buy").click(function(){
-            var p=$(this).parent();
-            var pImg=p.find(".product-img").attr("src");
-            var pName=p.find(".product-name").text();
-            var pPrice =p.find(".product-price").text();
+       $(document).ready(function(){
+    // ===== THÊM SẢN PHẨM + KIỂM TRA ĐĂNG NHẬP =====
+    $(document).on("click", ".btn-buy", function(e){
+        e.preventDefault();
+        
+        // 1. KIỂM TRA ĐĂNG NHẬP
+        const currentUserRaw = localStorage.getItem("currentUser");
+        if (!currentUserRaw) {
+            alert("Vui lòng đăng nhập trước khi thêm vào giỏ hàng!");
+            window.location.href = "login.html";
+            return;
+        }
 
-            var product ={
-               "name":pName,
-               "image": pImg,
-               "price":pPrice,
-            };// alert(pImg+pName+pPrice);
-            var orderDetails=sessionStorage.getItem("order");
-            if(orderDetails !=null)
-                orderDetails +=","+ JSON.stringify(product);
-            else
-                orderDetails = JSON.stringify(product);
-            
-                // alert(orderDetails);
-            //thêm sản phẩm vừa chọn vào session
-            sessionStorage.setItem("order", orderDetails);
+        // 2. LẤY THÔNG TIN KHÓA
+        const p = $(this).closest("li");
+        const pImg = p.find(".product-img").attr("src");
+        const pName = p.find(".product-name").text().trim();
+        const pPriceStr = p.find(".product-price").text().trim();
+        
+        // 3. ĐỔI GIÁ TỪ CHUỖI THÀNH SỐ
+        const pPrice = Number(pPriceStr.replace(/[^0-9]/g, "")) || 0;
 
-            //tăng số lượng ở giỏ hàng
-            var c = $(".cart-amount").text();
-            var amount = Number(c)+1;
-            $(".cart-amount").text(amount);
-            
-        });
+        if (!pName || pPrice <= 0) {
+            alert("Không lấy được thông tin khóa học! Tên: " + pName + ", Giá: " + pPrice);
+            return;
+        }
+
+        // 4. THÊM VÀO GIỎ (giá PHẢI là SỐ)
+        const product = {
+            "name": pName,
+            "image": pImg,
+            "price": pPrice  // LƯU TỪ LÀ SỐ NGUYÊN!
+        };
+
+        let cart = JSON.parse(sessionStorage.getItem("order") || "[]");
+        cart.push(product);
+        sessionStorage.setItem("order", JSON.stringify(cart));
+
+        // 5. CẬP NHẬT SỐ LƯỢNG
+        const c = $(".cart-amount").text();
+        const amount = Number(c) + 1;
+        $(".cart-amount").text(amount);
+
+        alert('Đã thêm "' + pName + '" vào giỏ hàng! Giá: ' + pPrice.toLocaleString("vi-VN") + 'đ');
     });
+});
+
     </script>
     
+	
 </head>
 <body>
     <div id="header">
@@ -117,10 +135,11 @@
             <div class="menu">
                 <ul>
                     <li><a href="index.html">TRANG CHỦ</a></li>
-                    <li><a href="#">KHÓA HỌC</a></li>
+                    <li><a href="course.html">KHÓA HỌC</a></li>
                     <!-- <li><a href="#">PHỤ KIỆN</a></li> -->
                     <li><a href="https://codelearn.io/learning" target="_blank">TIN TỨC</a></li>
                     <li><a href="introduce.html">GIỚI THIỆU</a></li>
+					
                 </ul>
             </div>
         </div>
@@ -151,7 +170,6 @@
                 <hr style="color: #EEEEEE; size: 1px;">
                 <!-- khóa học nổi bật -->
 
-             
                 <div class="products">
                     <ul>
                         
@@ -522,6 +540,163 @@
             </div>
         </div>
     </div>
+
+<script>
+// ==================== TÌM KIẾM ====================
+document.addEventListener("DOMContentLoaded", function () {
+    const searchBtn = document.querySelector(".btn-search");
+    const searchInput = document.querySelector(".search-text");
+    const productsContainer = document.querySelector(".products ul"); // chỗ hiện khóa học
+
+    // Danh sách khóa học 
+    const allCourses = [
+        { name: "Khóa học Python - cơ bản", price: "599,000đ", old: "900,000đ", img: "6.jpg", link: "chitietsanpham.html" },
+        { name: "Khóa học C# cho người mới bắt đầu", price: "499,000đ", old: "700,000đ", img: "5.jpg", link: "CTSP-1.html" },
+        { name: "Lập trình C++ cơ bản", price: "499,000đ", old: "720,000đ", img: "3.jpg", link: "CTSP-2.html" },
+        { name: "Khóa học SQL - cơ bản", price: "999,000đ", old: "1,500,000đ", img: "1.jpg", link: "CTSP-3.html" },
+        { name: "Khóa học JavaScript cho người mới bắt đầu", price: "500,000đ", old: "800,000đ", img: "2.jpg", link: "CTSP-4.html" },
+        { name: "Khóa học C# - cơ bản", price: "299,000đ", old: "500,000đ", img: "7.jpg", link: "CTSP-5.html" },
+        { name: "Khóa học truyền thông và mạng máy tính", price: "800,000đ", old: "1,000,000đ", img: "4.jpg", link: "CTSP-6.html" },
+        { name: "Thiết kế UI/UX", price: "450,000đ", old: "800,000đ", img: "8.jpg", link: "CTSP-7.html" },
+        { name: "Thiết kế web cơ bản", price: "699,000đ", old: "1,200,000đ", img: "9.jpg", link: "CTSP-8.html" },
+        { name: "Khóa học Python hướng đối tượng(OOP)", price: "599,000đ", old: "1,100,000đ", img: "10.jpg", link: "CTSP-9.html" }
+    ];
+
+    // Bấm nút tìm kiếm
+    searchBtn.addEventListener("click", function () {
+        const keyword = searchInput.value.trim().toLowerCase();
+        if (!keyword) {
+            alert("Nhập tên khóa học cần tìm nha em!");
+            return;
+        }
+
+        const result = allCourses.filter(course => course.name.toLowerCase().includes(keyword));
+
+        if (result.length === 0) {
+            productsContainer.innerHTML = "<p style='text-align:center;padding:50px;color:#e67e22;font-size:20px;'>Không tìm thấy khóa học nào 😢</p>";
+            return;
+        }
+
+        let html = "";
+        result.forEach(course => {
+            html += `<li>
+                <a href="${course.link}">
+                    <h4>${course.name}</h4>
+                    <div class="box-img"><img class="product-img" src="${course.img}"></div>
+                </a>
+                <p class="price1 product-price">${course.price}</p>
+                <p class="review"><span><strike>${course.old}</strike></span></p>
+                <input class="btn-buy" type="button" value="Thêm vào giỏ">
+                <a href="${course.link}"><input class="btn-view" type="button" value="Chi tiết"></a>
+            </li>`;
+        });
+        productsContainer.innerHTML = html;
+        alert(`Tìm thấy ${result.length} khóa học phù hợp! ❤️`);
+    });
+
+    // Nhấn Enter cũng tìm luôn
+    searchInput.addEventListener("keyup", function (e) {
+        if (e.key === "Enter") searchBtn.click();
+    });
+});
+</script>
+<script>
+// === HIỂN THỊ KHÓA HỌC TỪ ADMIN - ĐÃ SỬA 100% ===
+$(document).ready(function () {
+    function loadCourses() {
+        let raw = localStorage.getItem("khohoc");
+        if (!raw) return; // không có dữ liệu thì thôi
+        let courses = [];
+        try { courses = JSON.parse(raw); } catch(e) { return; }
+
+        // XÓA HẾT KHÓA HỌC CŨ TRONG 2 PHẦN
+        $(".products ul").empty();
+
+        courses.forEach(function (course) {
+            let oldPrice = course.giam ? `<span style="color:#999;margin-left:10px;"><strike>${Number(course.giam).toLocaleString()}đ</strike></span>` : "";
+
+            // PHẢI DÙNG <li> ĐỂ HIỆN TRONG <ul>
+            let html = `
+                <li style="text-align:center; padding:15px; border:1px solid #eee; border-radius:10px; margin:10px; background:#fff;">
+                    <a href="CTSP-${course.id}.html">
+                        <h4 style="height:50px; overflow:hidden; margin:10px 0;">
+                            <label class="product-name">${course.ten}</label>
+                        </h4>
+                        <div class="box-img">
+                            <img class="product-img" src="${course.img || 'default.jpg'}" style="width:100%; max-width:250px; height:180px; object-fit:cover; border-radius:8px;">
+                        </div>
+                    </a>
+                    <p class="price1 product-price" style="color:red; font-weight:bold; font-size:1.3em; margin:10px 0;">
+                        ${Number(course.gia).toLocaleString()}đ
+                        ${oldPrice}
+                    </p>
+                    <input type="button" class="btn-buy" value="Thêm vào giỏ" 
+                        data-name="${course.ten}" 
+                        data-price="${course.gia}" 
+                        data-img="${course.img || 'default.jpg'}" />
+                    <a href="CTSP-${course.id}.html">
+                        <input type="button" class="btn-view" value="Chi tiết" style="margin-top:5px;" />
+                    </a>
+                </li>
+            `;
+
+            // HIỆN Ở CẢ 2 PHẦN: Nổi bật + Mới
+            $(".products ul").first().append(html);  // Khóa học Nổi Bật
+            $(".products ul").last().append(html);   // Khóa học Mới
+        });
+// Gắn lại sự kiện Thêm vào giỏ cho khóa từ admin
+$(document).on("click", ".btn-buy", function (e) {
+    e.preventDefault();
+    
+    // 1. KIỂM TRA ĐĂNG NHẬP
+    const currentUserRaw = localStorage.getItem("currentUser");
+    if (!currentUserRaw) {
+        alert("Vui lòng đăng nhập trước khi thêm vào giỏ hàng!");
+        window.location.href = "login.html";
+        return;
+    }
+
+    // 2. LẤY DỮ LIỆU TỪ ATTRIBUTE HOẶC TỪ DOM
+    let name = $(this).data("name") || $(this).closest("li").find(".product-name").text().trim();
+    let priceStr = $(this).data("price") || $(this).closest("li").find(".product-price").text().trim();
+    let img = $(this).data("img") || $(this).closest("li").find(".product-img").attr("src");
+    
+    // 3. ĐỔI GIÁ THÀNH SỐ
+    const price = Number(priceStr.toString().replace(/[^0-9]/g, "")) || 0;
+
+    if (!name || price <= 0) {
+        alert("Không lấy được thông tin!");
+        return;
+    }
+
+    // 4. THÊM VÀO GIỎ (GIÁ PHẢI LÀ SỐ)
+    let product = { name: name, image: img, price: price };
+    let cart = JSON.parse(sessionStorage.getItem("order") || "[]");
+    cart.push(product);
+    sessionStorage.setItem("order", JSON.stringify(cart));
+
+    // 5. CẬP NHẬT SỐ LƯỢNG
+    let count = parseInt($(".cart-amount").text() || "0") + 1;
+    $(".cart-amount").text(count);
+
+    alert("Đã thêm vào giỏ: " + name + "\nGiá: " + price.toLocaleString("vi-VN") + "đ");
+});
+
+
+    // Load lần đầu
+    loadCourses();
+
+    // Tự động cập nhật khi admin thêm khóa học (từ tab khác)
+    window.addEventListener("storage", function(e) {
+        if (e.key === "khohoc") {
+            loadCourses();
+        }
+    });
+
+    // Tự động reload mỗi 3 giây (để test nhanh)
+    setInterval(loadCourses, 3000);
+});
+</script>
 
 </body>
 

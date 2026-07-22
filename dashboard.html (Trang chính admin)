@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Thảo Nguyên</title>
+	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar-admin">
+    <h3><i class="fas fa-user-shield"></i> ADMIN TN05</h3>
+    <a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="#"><i class="fas fa-book"></i> Quản lý Khóa học</a>
+    <a href="#"><i class="fas fa-users"></i> Quản lý Học viên</a>
+    <a href="#"><i class="fas fa-shopping-cart"></i> Quản lý Đơn hàng</a>
+    <a href="index.html"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+</div>
+
+<!-- HEADER -->
+<div class="header-admin">
+    <h2><i class="fas fa-cog"></i> Trang Quản Trị Hệ Thống</h2>
+    <div>Chào Admin <strong style="color:#e74c3c">Thảo Nguyên</strong> | <span id="clock"></span></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+    <div class="card-wrapper">
+        <h1 style="font-size:34px;color:#2c3e50;margin-bottom:30px"><i class="fas fa-tachometer-alt"></i> Dashboard Quản Trị</h1>
+
+        <div class="stats">
+            <div class="stat-card"><h3>156</h3>Tổng khóa học</div>
+            <div class="stat-card"><h3>1.248</h3>Học viên</div>
+            <div class="stat-card"><h3>89</h3>Đơn hàng hôm nay</div>
+            <div class="stat-card"><h3>47.5tr</h3>Doanh thu tháng</div>
+        </div>
+
+        <h2 style="color:#2c3e50;font-size:26px;margin:40px 0 20px">Khóa học mới đăng ký gần đây</h2>
+        <button class="btn btn-add" onclick="themMoi()">+ Thêm học viên mới</button>
+
+        <table id="tbl">
+            <thead><tr><th>ID</th><th>Họ tên</th><th>Khóa học</th><th>Ngày đăng ký</th><th>Hành động</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// CHẶN NGƯỜI THƯỜNG
+if(localStorage.getItem("currentUser") !== "admin@tn05.com"){
+    alert("🚫 Cấm vào! Chỉ Admin mới được vào trang này!");
+    location.href="login.html";
+}
+
+// ĐỒNG HỒ
+setInterval(()=>document.getElementById("clock").innerText = new Date().toLocaleString('vi-VN'),1000);
+
+// DỮ LIỆU
+let ds = JSON.parse(localStorage.getItem("dangky_khoahoc")||"[]");
+function load(){
+    let html=""; 
+    ds.forEach(x=>html+=`<tr><td>${x.id}</td><td>${x.ten}</td><td>${x.khoa}</td><td>${x.ngay}</td>
+        <td><button class="btn btn-sua" onclick="sua(${x.id})">Sửa</button>
+            <button class="btn btn-xoa" onclick="xoa(${x.id})">Xóa</button></td></tr>`);
+    document.querySelector("#tbl tbody").innerHTML=html;
+}
+function themMoi(){
+    let ten=prompt("Họ tên:"), khoa=prompt("Khóa học:");
+    if(ten&&khoa){ds.push({id:Date.now(),ten,khoa,ngay:new Date().toLocaleDateString('vi-VN')});
+    localStorage.setItem("dangky_khoahoc",JSON.stringify(ds));load();}
+}
+function sua(id){
+    let p=ds.find(x=>x.id==id);
+    let t=prompt("Sửa tên:",p.ten), k=prompt("Sửa khóa:",p.khoa);
+    if(t&&k){p.ten=t;p.khoa=k;localStorage.setItem("dangky_khoahoc",JSON.stringify(ds));load();}
+}
+function xoa(id){
+    if(confirm("Xóa thật không?")){ds=ds.filter(x=>x.id!=id);
+    localStorage.setItem("dangky_khoahoc",JSON.stringify(ds));load();}
+}
+load();
+</script>
+</body>
+</html>

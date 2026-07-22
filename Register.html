@@ -1,0 +1,361 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Khóa học.....</title>
+    <link rel="stylesheet" href="home1.css">
+   <link rel="stylesheet" href="font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="register-page">
+
+    <div id="header">
+        <div id="top-header">
+            <div class="logo">
+                <img src="your-logo.png" alt="logo" height="90px" style="width:60%;margin-top:9px">
+            </div>
+            <div id="search">
+                <input type=" text" name="" placeholder="Search..." class="search-text" />
+                <button class="btn-search">
+                    <i class="fas fa-search"></i>
+                    
+                </button>
+            </div>
+            <div id="user">
+                <div class="account"> 
+                    <ul>
+                        <li><a href="#">
+                                <div id="icon-user">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="sign-up">
+                                    <span> Đăng nhập / Đăng ký </span> <br>
+                                    Tài khoản <i style="font-size: 20px;" class="fas fa-caret-down"></i>
+                                </div>
+                            </a>
+                            <ul class="user2">
+
+
+                                <a href="login.html">
+                                    <li class="dn"> Đăng nhập</li>
+                                </a>
+                                <a href="#">
+                                    <li class="ttk">Tạo tài khoản</li>
+                                </a>
+                                <a
+                                    href="https://www.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNjE4ODU4MjQ4LCJjYWxsc2l0ZV9pZCI6MzgxMjI5MDc5NTc1OTQ2fQ%3D%3D">
+                                    <li class="fb"><i class="fab fa-facebook-square"
+                                            style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập băng facebook</li>
+                                </a>
+
+                                <a href="https://mail.google.com/mail/u/0/?pli=1#inbox">
+                                    <li class="gmail"><i class="fab fa-google-plus-g"
+                                            style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập bằng gmail</li>
+                                </a>
+
+                                <a href="https://id.zalo.me/account?continue=https%3A%2F%2Fchat.zalo.me%2F">
+                                    <li class="zalo">
+                                        <img src="image/Zalo1.jpg" alt="#">
+                                        Đăng nhập bằng zalo
+                                    </li>
+                                </a>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cart">
+                    <a href="cart.html">
+                        <i style="size: 100%; font-size: 30;color: white;" class="fas fa-cart-plus"></i>
+                        giỏ hàng
+                        <label class="cart-amount">0</label>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div id="end-header">
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">TRANG CHỦ</a></li>
+                     <li><a href="course.html">KHÓA HỌC</a></li>
+                    <!-- <li><a href="#">PHỤ KIỆN</a></li> -->
+                    <li><a href="https://codelearn.io/learning" target="_blank">TIN TỨC</a></li>
+                    <li><a href="introduce.html">GIỚI THIỆU</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        function checkEmail(){
+               var email=document.getElementById("email").value;
+               var aCong=email.indexOf("@");
+               var dot = email.lastIndexOf(".");
+               if ((aCong<1) || (dot<aCong+2) || (dot+2>email.length)) {
+                   document.getElementById("ktra1").innerHTML="Vui lòng nhập lại email.Ví dụ:abc@gmail.com";
+                   
+               }
+               else {
+                   document.getElementById("ktra1").innerHTML="";
+               }
+           }
+           function checkPwd(){
+       var password = document.getElementById("password").value;
+       if ( password.length <6) {
+           document.getElementById("ktra2").innerHTML="Mật khẩu ít nhất 6 kí tự.Vui lòng nhập lại!!";
+                   
+               }
+               else {
+                   document.getElementById("ktra2").innerHTML="";
+               
+       }
+   }
+   function checkCfpwd(){
+       var cfpassword = document.getElementById("cfpassword").value;
+       var password = document.getElementById('password').value;
+       if (cfpassword!==password) {
+           document.getElementById("ktra3").innerHTML="Nhập lại chưa đúng!!";
+                   
+               }
+               else {
+                   document.getElementById("ktra3").innerHTML="";
+       }
+   }
+   function kiemtraho(){
+               var ten = document.getElementById("txtHo").value;
+               if(ten==""){
+                   document.getElementById("ktra4").innerHTML = "Vui lòng nhập Họ  ";
+               }
+       
+               for(i=0;i<ten.length;i++){
+                   if(!isNaN(ten[i])){
+                       document.getElementById("ktra4").innerHTML ="Không được nhập ký tự số";
+                   }
+                   else
+                       document.getElementById("ktra4").innerHTML ="";
+               }
+       
+           }
+
+
+        //    kt05
+           
+           //Kiểm tra Số điện thoại nhập đúng ko???	
+           function kiemtraSDT(){
+               var sdt = document.getElementById("txtSDT").value;
+               if(sdt==""){
+                   document.getElementById("ktra6").innerHTML = "Vui lòng nhập Số điện thoại";
+               }
+               else{
+                   if(!isNaN(sdt)){
+                       document.getElementById("ktra6").innerHTML ="";}
+                       else
+                       {
+                           document.getElementById("ktra6").innerHTML ="Vui lòng nhập đúng ký tự số";
+                       }
+                   }
+                   
+                   if(sdt.length < 10 || sdt.length > 11){
+                       document.getElementById("ktra6").innerHTML ="Số điện thoại chưa đúng!";
+                   }
+                   
+               }
+               function kiemtrarong(){
+                   var x=document.getElementById("txt").value;
+                   if(x==""){
+                       document.getElementById("ktra7").innerHTML="Vui lòng nhập địa chỉ nhận hàng.";
+                   }
+                   else{
+                       document.getElementById("ktra7").innerHTML="";
+                   }
+               }
+               function kiemtraten(){
+               var ten = document.getElementById("txtTen").value;
+               if(ten==""){
+                   document.getElementById("ktra5").innerHTML = "Vui lòng nhập Tên  ";
+               }
+       
+               for(i=0;i<ten.length;i++){
+                   if(!isNaN(ten[i])){
+                       document.getElementById("ktra5").innerHTML ="Không được nhập ký tự số";
+                   }
+                   else
+                       document.getElementById("ktra5").innerHTML ="";
+               }
+       
+           }
+           </script>
+
+
+
+
+
+
+<section class="register-page-wrapper">
+  <div class="register-card">
+    <h2 class="register-title">Đăng ký</h2>
+
+    <div class="register-group">
+      <input id="txtTen" type="text" placeholder="Họ tên" onblur="kiemtraten()">
+      <span id="ktra5" class="register-error"></span>
+    </div>
+
+    <div class="register-group">
+      <input id="password" type="password" placeholder="Mật khẩu" onblur="checkPwd()">
+      <span id="ktra2" class="register-error"></span>
+    </div>
+
+    <div class="register-group">
+      <input id="cfpassword" type="password" placeholder="Nhập lại mật khẩu" onblur="checkCfpwd()">
+      <span id="ktra3" class="register-error"></span>
+    </div>
+
+    <div class="register-group">
+      <input id="email" type="email" placeholder="Email" onblur="checkEmail()">
+      <span id="ktra1" class="register-error"></span>
+    </div>
+
+    <div class="register-group">
+      <input id="txtSDT" type="text" placeholder="Số điện thoại" onblur="kiemtraSDT()">
+      <span id="ktra6" class="register-error"></span>
+    </div>
+
+    <button class="register-btn" onclick="dangKyTaiKhoan()">Đăng ký</button>
+    <span id="thongbao" class="register-message"></span>
+  </div>
+</section>
+
+
+
+
+    <div class="clearfix"></div>
+    <hr style="color: #EEEEEE; size: 1px;">
+    <div class="footer">
+        <div class="container-web">
+
+            <div style="padding-top: 15px" class="footer-main">
+                <div class="service footer1">
+                    <ul>
+                        <li>
+                            <div class="sales">
+                                <h5>Liên kết</h5>
+                                <p><a href="#">Khóa học khuyến mại</a></p>
+                                <p><a href="#">Khóa học nổi bật</a></p>
+                                <p><a href="#">Tất cả khóa học</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Hỗ trợ</h5>
+                                <p><a href="trangchu.html">Trang chủ</a></p>
+                                <p><a href="#">Khóa học </a></p>
+                                <p><a href="tintuc.html">Tin tức</a></p>
+                                <p><a href="gioithieu.html">Giới thiệu</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Dịch vụ</h5>
+                                <p><a href="#">Tìm kiếm</a></p>
+                                <p><a href="gioithieu.html">Giới thiệu</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Liên hệ</h5>
+                                <a style="color:#fff" href="#"><i class="fa fa-phone"> 0352463862</i>
+                                    <p>Đ/C:Mỹ Hào-Hưng Yên</p>
+                                    <p><i class="far fa-envelope"></i>TN05@gmail.com</p>
+                            </div>
+                            <div id="icon-footer">
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fa fa-rss"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-youtube"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-google-plus-g"></i></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right">
+            <div class="container-web">
+                <p style="text-align: center; color: #444444;">Copyright © 2025 by<a
+                        href="https://www.facebook.com/thao.nguyen.857201?locale=vi_VN">
+                        Thảo Nguyên</a></p>
+            </div>
+        </div>
+    </div>
+<script>
+// ==================== HÀM ĐĂNG KÝ TÀI KHOẢN HOÀN CHỈNH ====================
+function dangKyTaiKhoan() {
+    // Lấy giá trị
+    const hoTen = document.getElementById("txtTen").value.trim();
+    const password = document.getElementById("password").value;
+    const cfpassword = document.getElementById("cfpassword").value;
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const sdt = document.getElementById("txtSDT").value.trim();
+
+    // Kiểm tra rỗng
+    if (!hoTen || !password || !cfpassword || !email || !sdt) {
+        document.getElementById("thongbao").innerHTML = "Vui lòng điền đầy đủ thông tin!";
+        return;
+    }
+
+    // Kiểm tra mật khẩu
+    if (password.length < 6) {
+        document.getElementById("thongbao").innerHTML = "Mật khẩu phải ít nhất 6 ký tự!";
+        return;
+    }
+    if (password !== cfpassword) {
+        document.getElementById("thongbao").innerHTML = "Nhập lại mật khẩu chưa đúng!";
+        return;
+    }
+
+    // Kiểm tra email hợp lệ
+    if (!email.includes("@") || !email.includes(".")) {
+        document.getElementById("thongbao").innerHTML = "Email không hợp lệ!";
+        return;
+    }
+
+    // Kiểm tra SĐT
+    if (!/^0[0-9]{9}$/.test(sdt)) {
+        document.getElementById("thongbao").innerHTML = "Số điện thoại phải 10 số, bắt đầu bằng 0!";
+        return;
+    }
+
+    // Kiểm tra email đã tồn tại chưa
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+    if (users.find(u => u.email === email)) {
+        document.getElementById("thongbao").innerHTML = "Email này đã được đăng ký!";
+        return;
+    }
+
+    // Lưu user mới
+    const newUser = {
+        hoTen: hoTen,
+        email: email,
+        password: password,
+        sdt: sdt,
+        role: "user" // mặc định là user
+    };
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // Tự động đăng nhập luôn
+    localStorage.setItem("currentUser", JSON.stringify(newUser));
+
+    document.getElementById("thongbao").style.color = "green";
+    document.getElementById("thongbao").innerHTML = "ĐĂNG KÝ THÀNH CÔNG! Đang chuyển về trang chủ...";
+
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 1500);
+}
+</script>
+</body>
+
+</html>

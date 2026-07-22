@@ -1,0 +1,266 @@
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Khóa học.....</title>
+    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="login.css">
+   <script src="cart-header.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	
+</head>
+<body>
+    <div id="header">
+        <div id="top-header">
+            <div class="logo">
+                <img src="your-logo.png" alt="logo" height="90px" style="width:60%;margin-top:9px">
+            </div>
+            <div id="user">
+                <div class="account"> 
+                    <ul>
+                        <li><a href="#">
+                                <div id="icon-user">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="sign-up">
+                                    <span> Đăng nhập / Đăng ký </span> <br>
+                                    Tài khoản <i style="font-size: 20px;" class="fas fa-caret-down"></i>
+                                </div>
+                            </a>
+                            <ul class="user2">
+
+
+                                <a href="login.html">
+                                    <li class="dn"> Đăng nhập</li>
+                                </a>
+                                <a href="Register.html">
+                                    <li class="ttk">Tạo tài khoản</li>
+                                </a>
+                                <a
+                                    href="https://www.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNjE4ODU4MjQ4LCJjYWxsc2l0ZV9pZCI6MzgxMjI5MDc5NTc1OTQ2fQ%3D%3D">
+                                    <li class="fb"><i class="fab fa-facebook-square"
+                                            style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập băng facebook</li>
+                                </a>
+
+                                <a href="https://mail.google.com/mail/u/0/?pli=1#inbox">
+                                    <li class="gmail"><i class="fab fa-google-plus-g"
+                                            style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập bằng gmail</li>
+                                </a>
+
+                                <a href="https://id.zalo.me/account?continue=https%3A%2F%2Fchat.zalo.me%2F">
+                                    <li class="zalo">
+                                        <img src="image/Zalo1.jpg" alt="#">
+                                        Đăng nhập bằng zalo
+                                    </li>
+                                </a>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cart">
+                    <a href="cart.html">
+                        <i style="size: 100%; font-size: 30;color: white;" class="fas fa-cart-plus"></i>
+                        giỏ hàng
+                        <label class="cart-amount">0</label>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div id="end-header">
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">TRANG CHỦ</a></li>
+                    <li><a href="course.html">KHÓA HỌC</a></li>
+                    <!-- <li><a href="#">PHỤ KIỆN</a></li> -->
+                    <li><a href="https://codelearn.io/learning" target="_blank">TIN TỨC</a></li>
+                    <li><a href="introduce.html">GIỚI THIỆU</a></li>
+					<a href="dashboard.html" id="admin-link">QUẢN TRỊ</a>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="out">
+   
+        
+        <!-- FORM ĐĂNG NHẬP -->
+<div id="login">
+    <h1>ĐĂNG NHẬP</h1>
+
+    <div class="input-box">
+        <i class="fas fa-user"></i>
+        <input type="text" id="email" placeholder="Nhập email hoặc tên đăng nhập" required>
+    </div>
+
+    <div class="input-box">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="pass" placeholder="Nhập mật khẩu" required>
+    </div>
+
+    <label><input type="checkbox"> Lưu tài khoản</label><br><br>
+
+    <button class="btn-login" onclick="dangNhap()">Đăng nhập</button>
+
+    <div class="links">
+        <a href="#">Quên mật khẩu?</a>
+        <a href="Register.html">Đăng ký tài khoản</a>
+    </div>
+
+    <!-- Nút test Admin -->
+    <div class="admin-section">
+        <p>Bạn là quản trị viên?</p>
+        <button type="button" class="btn-admin" onclick="dangNhapAdmin()">
+            <i class="fas fa-user-shield"></i> ĐĂNG NHẬP ADMIN (TEST)
+        </button>
+    </div>
+</div>
+
+<script>
+// ĐĂNG NHẬP - FIX 100% - ĐỌC TỪ localStorage
+function dangNhap() {
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const pass = document.getElementById("pass").value;
+
+    if (!email || !pass) {
+        alert("Vui lòng nhập đầy đủ!");
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+    const user = users.find(u => u.email === email && u.password === pass);
+
+    if (!user) {
+        alert("Sai email hoặc mật khẩu!");
+        return;
+    }
+
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    alert("Đăng nhập thành công!");
+
+    if (user.role === "admin") {
+        window.location.href = "dashboard.html";
+    } else {
+        window.location.href = "index.html";
+    }
+}
+
+// Nút test admin (gày xưa (giữ lại cho tiện)
+function dangNhapAdmin() {
+    const email = "admin@tn05.com";
+    const pass = "123456";
+    const admin = { email, password: pass, role: "admin" };
+    localStorage.setItem("currentUser", JSON.stringify(admin));
+    alert("Đăng nhập admin thành công!");
+    window.location.href = "dashboard.html";
+}
+</script>
+<!-- FOOTER -->
+<div class="footer">
+    <div class="footer-main">
+        <ul>
+            <li>
+                <h5>Liên kết</h5>
+                <p><a href="#">Khóa học khuyến mại</a></p>
+                <p><a href="#">Khóa học nổi bật</a></p>
+            </li>
+            <li>
+                <h5>Hỗ trợ</h5>
+                <p><a href="index.html">Trang chủ</a></p>
+                <p><a href="#">Tin tức</a></p>
+                <p><a href="introduce.html">Giới thiệu</a></p>
+            </li>
+            <li>
+                <h5>Liên hệ</h5>
+                <p><i class="fa fa-phone"></i> 0352463862</p>
+                <p>Mỹ Hào - Hưng Yên</p>
+                <p><i class="far fa-envelope"></i> TN05@gmail.com</p>
+            </li>
+        </ul>
+    </div>
+    <div class="copy-right">
+        Copyright © 2025 Thảo Nguyên
+    </div>
+</div>
+
+<script>
+let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+function dangNhap() {
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const pass = document.getElementById("pass").value;
+
+    if (!email || !pass) {
+        alert("Vui lòng nhập email và mật khẩu!");
+        return;
+    }
+
+    // ĐỌC TỪ localStorage, KHÔNG DÙNG MẢNG CỨNG NỮA!
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    const user = users.find(u => u.email === email && u.password === pass);
+
+    if (!user) {
+        alert("Sai email hoặc mật khẩu!");
+        return;
+    }
+
+    // Đăng nhập thành công
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    alert("Đăng nhập thành công!");
+
+    if (user.role === "admin") {
+        window.location.href = "dashboard.html";
+    } else {
+        window.location.href = "index.html";
+    }
+}
+
+// Nút đăng nhập admin TEST
+function dangNhapAdmin() {
+    const email = prompt("Nhập email admin:");
+    const pass = prompt("Nhập mật khẩu admin:");
+
+    if (email === "admin@tn05.com" && pass === "123456") {
+        const admin = { email: email, password: pass, role: "admin" };
+        localStorage.setItem("currentUser", JSON.stringify(admin));
+        alert("Đăng nhập admin thành công!");
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Sai email hoặc mật khẩu admin!");
+    }
+}
+
+
+// XỬ LÝ HEADER
+document.addEventListener("DOMContentLoaded", function () {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const adminLink = document.getElementById("admin-link");
+
+    if (adminLink) {
+        if (currentUser && currentUser.role === "admin") {
+            adminLink.style.display = "block";
+        } else {
+            adminLink.style.display = "none";
+        }
+    }
+
+    if (currentUser && currentUser.role === "admin") {
+        document.querySelectorAll(".cart").forEach(cart => cart.style.display = "none");
+    }
+});
+</script>
+
+<link rel="stylesheet" href="style.css">
+<style>
+/* Fix nhỏ cho dropdown đẹp hơn */
+.user2 li {display: block !important;}
+</style>
+
+
+</body>
+</html>

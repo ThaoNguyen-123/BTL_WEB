@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Thanh toán - Thảo Nguyên</title>
+    <link rel="stylesheet" href="home1.css">
+	<link rel="stylesheet" href="login.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {background:#f9f9f9; font-family:Arial;}
+        .input-style {
+            width:100%; padding:16px; border:2px solid #ddd; border-radius:12px; font-size:16px; margin:10px 0;
+        }
+        .input-style:focus {border-color:#e67e22; outline:none;}
+        .btn-pay {
+            background:#e67e22; color:white; padding:18px 40px; border:none; border-radius:50px; font-size:20px; cursor:pointer;
+            margin-top:30px; width:100%; font-weight:bold;
+        }
+        .btn-pay:hover {background:#d35400;}
+        #order-summary {
+            background:white; padding:30px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div id="top-header">
+            <div class="logo">
+                <img src="your-logo.png" alt="logo" height="90px" style="width:60%;margin-top:9px">
+            </div>
+            <div id="search">
+                <input type=" text" name="" placeholder="Search..." class="search-text" />
+                <button class="btn-search">
+                    <i class="fas fa-search"></i>
+                    
+                </button>
+            </div>
+            <div id="user">
+                <div class="account"> 
+                    <ul>
+                        <li><a href="#">
+                                <div id="icon-user">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="sign-up">
+                                    <span> Đăng nhập / Đăng ký </span> <br>
+                                    Tài khoản <i style="font-size: 20px;" class="fas fa-caret-down"></i>
+                                </div>
+                            </a>
+                            <ul class="user2">
+
+
+                                <a href="login.html">
+                                    <li class="dn"> Đăng nhập</li>
+                                </a>
+                                <a href="Register.html">
+                                    <li class="ttk">Tạo tài khoản</li>
+                                </a>
+                                <a
+                                    href="https://www.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNjE4ODU4MjQ4LCJjYWxsc2l0ZV9pZCI6MzgxMjI5MDc5NTc1OTQ2fQ%3D%3D">
+                                    <li class="fb"><i class="fab fa-facebook-square"
+                                            style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập băng facebook</li>
+                                </a>
+
+                                <a href="https://mail.google.com/mail/u/0/?pli=1#inbox">
+                                    <li class="gmail"><i class="fab fa-google-plus-g"
+                                            style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập bằng gmail</li>
+                                </a>
+
+                                <a href="https://id.zalo.me/account?continue=https%3A%2F%2Fchat.zalo.me%2F">
+                                    <li class="zalo">
+                                        <img src="image/Zalo1.jpg" alt="#">
+                                        Đăng nhập bằng zalo
+                                    </li>
+                                </a>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cart">
+                    <a href="cart.html">
+                        <i style="size: 100%; font-size: 30;color: white;" class="fas fa-cart-plus"></i>
+                        giỏ hàng
+                        <label class="cart-amount">0</label>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div id="end-header">
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">TRANG CHỦ</a></li>
+                    <li><a href="course.html">KHÓA HỌC</a></li>
+                    <!-- <li><a href="#">PHỤ KIỆN</a></li> -->
+                    <li><a href="https://codelearn.io/learning" target="_blank">TIN TỨC</a></li>
+                    <li><a href="introduce.html">GIỚI THIỆU</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+   
+    <!-- mua hàng -->
+    <section style="margin-bottom: 50px">
+		
+	
+        <div style="margin-left: 100px;padding-top: 10px;">
+                <p><a href="cart.html" style="color: #333E48;">Quay lại</a>
+                    <span>></span>   Thanh toán</p>
+                
+            </div>
+            </div>
+        <div style="display: flex;">
+            <div class="muahang" style="margin-left: 100px;float: left;padding-top: 40px"  >
+            <h2 style="margin-top: 20px">Thông Tin Thanh Toán</h2>
+               
+<!-- PHẦN THANH TOÁN  -->
+<section style="padding:50px 100px; background:#f9f9f9;">
+   
+    
+    <div style="display:flex; gap:80px; flex-wrap:wrap; justify-content:center;">
+        <!-- CỘT TRÁI: THÔNG TIN KHÁCH -->
+        <div style="flex:1; min-width:400px;">
+            <h2 style="color:#e67e22; font-size:28px;">Thông Tin Thanh Toán</h2>
+            <hr style="border-color:#eee;">
+            <input type="text" id="hoTen" placeholder="Họ và tên *" class="input-style">
+            <input type="text" id="diaChi" placeholder="Địa chỉ nhận hàng *" class="input-style">
+            <input type="text" id="sdt" placeholder="Số điện thoại *" class="input-style">
+            <input type="email" id="email" placeholder="Email (không bắt buộc)" class="input-style">
+        </div>
+
+        <!-- CỘT PHẢI: ĐƠN HÀNG -->
+        <div id="order-summary">
+            <h2 style="color:#2c3e50;">Your Order</h2>
+            <hr>
+            <div style="font-size:18px; margin:20px 0;">
+                <strong>Khóa học:</strong> 
+                <span id="tenKhoa" style="color:#e67e22;">Đang tải...</span>
+            </div>
+            <div style="font-size:26px; color:#e74c3c; text-align:right; font-weight:bold; margin:30px 0;">
+                Tổng cộng: <span id="tongTien">0 ₫</span>
+            </div>
+            <button class="btn-pay" onclick="datHangThanhCong()">ĐẶT HÀNG NGAY</button>
+        </div>
+    </div>
+</section>
+
+<script>
+function datHangThanhCong() {
+    const hoTen = document.getElementById("hoTen").value.trim();
+    const diaChi = document.getElementById("diaChi").value.trim();
+    const sdt = document.getElementById("sdt").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    if (!hoTen || !diaChi || !sdt) {
+        alert("Điền đầy đủ thông tin bắt buộc!");
+        return;
+    }
+    if (!/^0[0-9]{9}$/.test(sdt)) {
+        alert("Số điện thoại không hợp lệ!");
+        return;
+    }
+
+    // Lấy giỏ hàng chuẩn
+    let cart = [];
+    try {
+        cart = JSON.parse(sessionStorage.getItem("order") || "[]");
+    } catch (e) {
+        cart = [];
+    }
+    if (!cart.length) {
+        alert("Giỏ hàng trống, không thể thanh toán!");
+        return;
+    }
+
+    const khoaHoc = cart.map(i => i.name).join(" + ");
+
+    const tongTien = cart.reduce((s, i) => {
+        const price = Number(i.price) || 0;
+        return s + price;
+    }, 0);
+
+    const ngayVN = new Date().toLocaleDateString("vi-VN");
+
+    // 1. LƯU ĐƠN HÀNG
+    let donhang = JSON.parse(localStorage.getItem("donhang") || "[]");
+    donhang.push({
+        id: Date.now(),
+        ten: hoTen,
+        khoa: khoaHoc,
+        gia: tongTien,
+        ngay: ngayVN,
+        diaChi,
+        sdt,
+        email
+    });
+    localStorage.setItem("donhang", JSON.stringify(donhang));
+
+    // 2. LƯU HỌC VIÊN
+    let hocvien = JSON.parse(localStorage.getItem("hocvien") || "[]");
+    hocvien.push({ id: Date.now(), ten: hoTen, khoa: khoaHoc, ngay: ngayVN });
+    localStorage.setItem("hocvien", JSON.stringify(hocvien));
+
+    // 3. CỘNG DOANH THU
+    let thongke = JSON.parse(localStorage.getItem("thongke") || "[]");
+    let today = thongke.find(x => x.ngay === ngayVN);
+    const dt = tongTien / 1000000;
+    if (today) today.doanhthu += dt;
+    else thongke.push({ ngay: ngayVN, doanhthu: dt });
+    localStorage.setItem("thongke", JSON.stringify(thongke));
+
+    // XÓA GIỎ & CHUYỂN TRANG
+    sessionStorage.removeItem("order");
+    alert("ĐẶT HÀNG THÀNH CÔNG!!! ❤️");
+    window.location.href = "Order-Success.html";
+}
+</script>
+
+
+
+
+
+    <div class="clearfix"></div>
+    <hr style="color: #EEEEEE; size: 1px;">
+    <div class="footer">
+        <div class="container-web">
+
+            <div style="padding-top: 15px" class="footer-main">
+                <div class="service footer1">
+                    <ul>
+                        <li>
+                            <div class="sales">
+                                <h5>Liên kết</h5>
+                                <p><a href="#">Khóa học khuyến mại</a></p>
+                                <p><a href="#">Khóa học nổi bật</a></p>
+                                <p><a href="#">Tất cả khóa học</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Hỗ trợ</h5>
+                                <p><a href="trangchu.html">Trang chủ</a></p>
+                                <p><a href="#">Khóa học </a></p>
+                                <p><a href="tintuc.html">Tin tức</a></p>
+                                <p><a href="gioithieu.html">Giới thiệu</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Dịch vụ</h5>
+                                <p><a href="#">Tìm kiếm</a></p>
+                                <p><a href="gioithieu.html">Giới thiệu</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Liên hệ</h5>
+                                <a style="color:#fff" href="#"><i class="fa fa-phone"> 0352463862</i>
+                                    <p>Đ/C:Mỹ Hào-Hưng Yên</p>
+                                    <p><i class="far fa-envelope"></i>TN05@gmail.com</p>
+                            </div>
+                            <div id="icon-footer">
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fa fa-rss"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-youtube"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-google-plus-g"></i></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right">
+            <div class="container-web">
+                <p style="text-align: center; color: #444444;">Copyright © 2025 by<a
+                        href="https://www.facebook.com/thao.nguyen.857201?locale=vi_VN">
+                        Thảo Nguyên</a></p>
+            </div>
+        </div>
+    </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let cart = [];
+    try {
+        cart = JSON.parse(sessionStorage.getItem("order") || "[]");
+    } catch (e) {
+        cart = [];
+    }
+
+    if (!cart.length) {
+        document.getElementById("tenKhoa").innerHTML =
+            "<span style='color:#999;'>Giỏ hàng trống</span>";
+        document.getElementById("tongTien").textContent = "0 ₫";
+        return;
+    }
+
+    // Tên khóa học
+    document.getElementById("tenKhoa").innerHTML = cart
+        .map(item => "• " + (item.name || "Khóa học"))
+        .join("<br>");
+
+    // Tổng tiền
+    const tong = cart.reduce((s, item) => {
+        const price = Number(item.price) || 0;
+        return s + price;
+    }, 0);
+    document.getElementById("tongTien").textContent =
+        tong.toLocaleString("vi-VN") + " ₫";
+
+    // Hiển thị số lượng trên 
+    const amount = document.querySelector(".cart-amount");
+    if (amount) amount.textContent = cart.length;
+});
+</script>
+
+</body>
+
+</html>

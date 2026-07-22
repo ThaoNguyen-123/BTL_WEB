@@ -1,0 +1,496 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Khóa học.....</title>
+    <link rel="stylesheet" href="home1.css">
+    <link rel="stylesheet" href="font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="login.js"></script>
+	
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="jquery.js"></script>
+ <style>
+        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(to bottom, #f8f9fa, #e9ecef); margin:0;}
+        
+        /* Container chính */
+        .cart-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        /* Header giỏ hàng */
+        .cart-header {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .cart-header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 700;
+        }
+        .cart-header .cart-number {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
+
+        /* Bảng tiêu đề */
+        .cart-table-header {
+            display: grid;
+            grid-template-columns: 100px 1fr 150px 120px;
+            padding: 20px;
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+            border-bottom: 3px solid #eee;
+        }
+
+        /* Sản phẩm */
+        .cart-items {padding: 0 20px;}
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr 150px 120px;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px dashed #ddd;
+            transition: all 0.3s;
+        }
+        .cart-item:hover {
+            background: #f8fff8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .cart-item img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 3px solid #eee;
+        }
+        .cart-item-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            padding-left: 15px;
+        }
+        .cart-item-price {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .cart-item-delete {
+            text-align: center;
+        }
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-delete:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        /* Tổng tiền */
+        .cart-total {
+            padding: 30px;
+            background: #f8f9fa;
+            text-align: right;
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .cart-total span {
+            color: #e74c3c;
+        }
+        .btn-pay {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 18px 60px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+            transition: all 0.4s;
+        }
+        .btn-pay:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(231, 76, 60, 0.5);
+        }
+
+        /* Khi giỏ trống */
+        .empty-cart {
+            text-align: center;
+            padding: 100px 20px;
+            color: #999;
+            font-size: 24px;
+        }
+        .empty-cart a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div id="header">
+        <div id="top-header">
+            <div class="logo">
+                <img src="your-logo.png" alt="logo" height="90px" style="width:60%;margin-top:9px">
+            </div>
+            <div id="search">
+                <input type=" text" name="" placeholder="Search..." class="search-text" />
+                <button class="btn-search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div id="user">
+                <div class="account">
+                    <ul>
+                        <li><a href="#">
+                                <div id="icon-user">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="sign-up">
+                                    <span> Đăng nhập / Đăng ký </span> <br>
+                                    Tài khoản <i style="font-size: 20px;" class="fas fa-caret-down"></i>
+                                </div>
+                            </a>
+                            <ul class="user2">
+
+
+                                <a href="login.html">
+                                    <li class="dn"> Đăng nhập</li>
+                                </a>
+                                <a href="Register.html">
+                                    <li class="ttk">Tạo tài khoản</li>
+                                </a>
+                                <a
+                                    href="https://www.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNjE4ODU4MjQ4LCJjYWxsc2l0ZV9pZCI6MzgxMjI5MDc5NTc1OTQ2fQ%3D%3D">
+                                    <li class="fb"><i class="fab fa-facebook-square"
+                                            style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập băng facebook</li>
+                                </a>
+
+                                <a href="https://mail.google.com/mail/u/0/?pli=1#inbox">
+                                    <li class="gmail"><i class="fab fa-google-plus-g"
+                                            style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập bằng gmail</li>
+                                </a>
+
+                                <a href="https://id.zalo.me/account?continue=https%3A%2F%2Fchat.zalo.me%2F">
+                                    <li class="zalo">
+                                        <img src="image/Zalo1.jpg" alt="#">
+                                        Đăng nhập bằng zalo
+                                    </li>
+                                </a>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cart">
+                    <a href="cart.html">
+                        <i style="size: 100%; font-size: 30;color: white;" class="fas fa-cart-plus"></i>
+                        giỏ hàng
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div id="end-header">
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">TRANG CHỦ</a></li>
+                   <li><a href="course.html">KHÓA HỌC</a></li>
+                    <!-- <li><a href="#">PHỤ KIỆN</a></li> -->
+                    <li><a href="https://codelearn.io/learning" target="_blank">TIN TỨC</a></li>
+                    <li><a href="introduce.html">GIỚI THIỆU</a></li>
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="content1">
+        <div id="content-title">
+            <label class="cart-title">GIỎ HÀNG</label>
+            <label class="cart-number">(0 sản phẩm)</label>
+            <p><label class="cart-menu" >
+                Hình ảnh&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  Tên sản phẩm&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Giá tiền&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                     Số lượng 
+            </label></p>
+            <hr style="color: #EEEEEE; size: 1px;">
+            <div class="clearfix"></div>
+        </div>
+        <div id="content-left" class="col-9 col-m-6 col-s-12">
+
+            
+            <div class="clearfix"></div>
+           
+        </div>
+        <div class="pay" style="float: right;">
+            Tổng cộng : <span id="tonggia" style="color: tomato;height: 200px; font-size: 20px;"></span>
+            <br>
+           <br>
+          <button class="btn-pay-cart">Thanh toán</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.querySelector(".btn-pay-cart");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+        let cart = [];
+        try {
+            cart = JSON.parse(sessionStorage.getItem("order") || "[]");
+        } catch (e) { cart = []; }
+        if (!cart.length) {
+            alert("Giỏ hàng đang trống, không thể thanh toán!");
+            return;
+        }
+        window.location.href = "pay.html";
+    });
+});
+
+</script>
+
+            <!-- <button class="btn-buy"><a style="color: white;" href="pay.html">Thanh toán</a></button> -->
+            
+                <!-- <a href="pay.html">Thanh toán</a> -->
+            
+        </div>
+    </div>
+
+<script>
+// === LOAD GIỎ HÀNG Ở CART.HTML ===
+window.onload = function () {
+    function loadCart() {
+        // ĐỌC GIỎ HÀNG CHUẨN JSON
+        let cart = [];
+        try {
+            cart = JSON.parse(sessionStorage.getItem("order") || "[]");
+        } catch (e) {
+            cart = [];
+        }
+
+        const container = document.getElementById("content-left");
+        container.innerHTML = "";
+
+        if (cart.length === 0) {
+            container.innerHTML = `
+                <div style="text-align:center;padding:120px 0;color:#999;">
+                    <i class="fas fa-shopping-cart" style="font-size:100px;color:#eee;display:block;margin-bottom:20px;"></i>
+                    <p style="font-size:28px;">Giỏ hàng trống rồi nè </p>
+                    <a href="index.html" style="color:#e74c3c;font-size:22px;font-weight:bold;">Đi mua sắm ngay thôi nào!</a>
+                </div>
+            `;
+            document.getElementById("tonggia").textContent = "0 VND";
+            const lbl = document.querySelector(".cart-number");
+            if (lbl) lbl.textContent = "(0 sản phẩm)";
+            return;
+        }
+
+        let tong = 0;
+        cart.forEach((item, i) => {
+            const gia = Number(item.price) || 0;   // LẤY SỐ
+            tong += gia;
+
+            const div = document.createElement("div");
+            div.style = "display:flex;align-items:center;padding:25px 0;border-bottom:1px dashed #ddd;";
+            div.innerHTML = `
+                <img src="${item.image || 'default.jpg'}"
+                     style="width:100px;height:100px;object-fit:cover;border-radius:15px;margin-right:30px;">
+                <div style="flex:2;font-size:20px;font-weight:600;color:#2c3e50;">${item.name}</div>
+                <div style="flex:1;text-align:center;color:#e74c3c;font-weight:bold;font-size:24px;">
+                    ${gia.toLocaleString("vi-VN")}đ
+                </div>
+                <div style="flex:1;text-align:center;">
+                    <button onclick="xoaKhoiGio(${i})"
+                            style="background:#e74c3c;color:white;padding:12px 30px;border:none;border-radius:50px;cursor:pointer;font-weight:bold;font-size:16px;">
+                        Xóa
+                    </button>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+
+        document.getElementById("tonggia").textContent =
+            tong.toLocaleString("vi-VN") + " VND";
+
+        const lbl = document.querySelector(".cart-number");
+        if (lbl) lbl.textContent = `(${cart.length} sản phẩm)`;
+    }
+
+    // HÀM XÓA 1 MÓN
+    window.xoaKhoiGio = function (i) {
+        if (!confirm("Xóa khóa học này khỏi giỏ?")) return;
+
+        let cart = [];
+        try {
+            cart = JSON.parse(sessionStorage.getItem("order") || "[]");
+        } catch (e) {
+            cart = [];
+        }
+
+        cart.splice(i, 1);
+        sessionStorage.setItem("order", JSON.stringify(cart));
+        loadCart();
+    };
+
+    loadCart();
+};
+</script>
+
+
+<script>
+// THÊM SẢN PHẨM VÀO GIỎ
+$(".btn-buy").click(function () {
+    const ten = $(this).closest("li").find(".product-name").text().trim();
+    const giaStr = $(this).closest("li").find(".product-price").text().trim();
+    const gia = Number(giaStr.replace(/[^0-9]/g, "")) || 0;
+    const img = $(this).closest("li").find(".product-img").attr("src") || "default.jpg";
+
+    if (!ten || gia <= 0) {
+        alert("Không lấy được thông tin khóa học!");
+        return;
+    }
+
+    // THÊM ĐOẠN KIỂM TRA Ở ĐÂY:
+    const currentUserRaw = localStorage.getItem("currentUser");
+    if (!currentUserRaw) {
+        alert("Vui lòng đăng nhập trước khi thêm vào giỏ hàng!");
+        window.location.href = "login.html";
+        return;
+    }
+
+    // PHẦN DƯỚI GIỮ NGUYÊN
+    let cart = [];
+    try { cart = JSON.parse(sessionStorage.getItem("order") || "[]"); }
+    catch(e) { cart = []; }
+
+    cart.push({ name: ten, price: gia, image: img });
+
+    sessionStorage.setItem("order", JSON.stringify(cart));
+
+    const count = cart.length;
+    $(".cart-amount").text(count);
+    const lbl = document.querySelector(".cart-number");
+    if (lbl) lbl.textContent = `(${count} sản phẩm)`;
+
+    alert('Đã thêm "' + ten + '" vào giỏ hàng thành công! ');
+});
+
+
+</script>
+
+
+
+
+
+
+    <!-- <div class="clearfix"></div> -->
+    
+   
+    
+
+    <!-- footrt -->
+    <div class="clearfix"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr style="color: #EEEEEE; size: 1px;">
+    <div class="footer">
+        <div class="container-web">
+
+            <div style="padding-top: 15px" class="footer-main">
+                <div class="service footer1">
+                    <ul>
+                        <li>
+                            <div class="sales">
+                                <h5>Liên kết</h5>
+                                <p><a href="#">Khóa học khuyến mại</a></p>
+                                <p><a href="#">Khóa học nổi bật</a></p>
+                                <p><a href="#">Tất cả khóa học</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Hỗ trợ</h5>
+                                <p><a href="trangchu.html">Trang chủ</a></p>
+                                <p><a href="#">Khóa học </a></p>
+                                <p><a href="tintuc.html">Tin tức</a></p>
+                                <p><a href="gioithieu.html">Giới thiệu</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Dịch vụ</h5>
+                                <p><a href="#">Tìm kiếm</a></p>
+                                <p><a href="gioithieu.html">Giới thiệu</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Liên hệ</h5>
+                                <a style="color:#fff" href="#"><i class="fa fa-phone"> 0379748152</i>
+                                    <p>Đ/C:Mỹ Hào-Hưng Yên</p>
+                                    <p><i class="far fa-envelope"></i>TN05@gmail.com</p>
+                            </div>
+                            <div id="icon-footer">
+                                <a class="_blank" href="https://www.facebook.com/thao.nguyen.857201?locale=vi_VN" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fa fa-rss"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-youtube"></i></a>
+                                <a class="_blank" href="https://mail.google.com/mail/u/0/?pli=1#inbox?compose=GTvVlcSBnpsJhVkVXmnpmJBgZsdwFtHTQSTvJDnXWSmcsSqdnXDTKbznNfhFDXZRjnZBXqhGLZHxF" target="_blank"><i class="fab fa-google-plus-g"></i></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right">
+            <div class="container-web">
+                <p style="text-align: center; color: #444444;">Copyright © 2025 by<a
+                        href="https://www.facebook.com/thao.nguyen.857201?locale=vi_VN">
+                        Thảo Nguyên </a></p>
+            </div>
+        </div>
+    </div>
+	
+
+
+</body>
+
+</html>

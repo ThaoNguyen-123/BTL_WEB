@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Đặt hàng thành công - Thảo Nguyên</title>
+    <link rel="stylesheet" href="home1.css">
+    <link rel="stylesheet" href="font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 200px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .success-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .success-card {
+            background: white;
+            border-radius: 20px;
+            padding: 80px 50px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: #4caf50;
+            margin-bottom: 20px;
+            animation: scaleIn 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .success-title {
+            font-size: 14px;
+            color: #999;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .success-heading {
+            font-size: 42px;
+            color: #2c3e50;
+            font-weight: 700;
+            margin: 0 0 30px 0;
+            line-height: 1.3;
+        }
+
+        .success-text {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .success-details {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .success-details p {
+            margin: 12px 0;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .success-details strong {
+            color: #2c3e50;
+        }
+
+        .success-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 13px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .success-card {
+                padding: 50px 30px;
+            }
+
+            .success-heading {
+                font-size: 32px;
+            }
+
+            .success-icon {
+                font-size: 60px;
+            }
+
+            .success-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <div id="top-header">
+            <div class="logo">
+                <img src="your-logo.png" alt="logo" height="90px" style="width:60%;margin-top:9px">
+            </div>
+            <div id="search">
+                <input type="text" name="" placeholder="Search..." class="search-text" />
+                <button class="btn-search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div id="user">
+                <div class="account">
+                    <ul>
+                        <li><a href="#">
+                                <div id="icon-user">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="sign-up">
+                                    <span> Đăng nhập / Đăng ký </span> <br>
+                                    Tài khoản <i style="font-size: 20px;" class="fas fa-caret-down"></i>
+                                </div>
+                            </a>
+                            <ul class="user2">
+                                <a href="login.html">
+                                    <li class="dn"> Đăng nhập</li>
+                                </a>
+                                <a href="Register.html">
+                                    <li class="ttk">Tạo tài khoản</li>
+                                </a>
+                                <a href="https://www.facebook.com/login/">
+                                    <li class="fb"><i class="fab fa-facebook-square" style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập bằng facebook</li>
+                                </a>
+                                <a href="https://mail.google.com/">
+                                    <li class="gmail"><i class="fab fa-google-plus-g" style="font-size: 20px;margin-right: 4px;"></i>
+                                        Đăng nhập bằng gmail</li>
+                                </a>
+                                <a href="https://id.zalo.me/">
+                                    <li class="zalo">
+                                        <img src="image/Zalo1.jpg" alt="#">
+                                        Đăng nhập bằng zalo
+                                    </li>
+                                </a>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cart">
+                    <a href="cart.html">
+                        <i style="font-size: 30px;color: white;" class="fas fa-cart-plus"></i>
+                        giỏ hàng
+                        <label class="cart-amount">0</label>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="end-header">
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">TRANG CHỦ</a></li>
+              <li><a href="course.html">KHÓA HỌC</a></li>
+                    <li><a href="https://codelearn.io/learning" target="_blank">TIN TỨC</a></li>
+                    <li><a href="introduce.html">GIỚI THIỆU</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHẦN THÀNH CÔNG -->
+    <div class="success-container">
+        <div class="success-card">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            
+            <p class="success-title">Hoàn tất</p>
+            <h1 class="success-heading">Đặt hàng thành công!</h1>
+            
+            <p class="success-text">
+                Cảm ơn bạn đã tin tưởng và mua sắm tại Thảo Nguyên. 
+                <br>Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.
+            </p>
+
+            <div class="success-details">
+                <p><strong>📅 Trạng thái:</strong> Đã xác nhận đơn hàng</p>
+                <p><strong>⏱️ Thời gian:</strong> <span id="orderTime"></span></p>
+                <p><strong>📍 Địa chỉ giao hàng:</strong> Sẽ được cập nhật qua email</p>
+            </div>
+
+            <div class="success-buttons">
+                <a href="index.html" class="btn-primary">← Tiếp tục mua sắm</a>
+                <a href="cart.html" class="btn-secondary">📦 Xem giỏ hàng</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <hr style="color: #EEEEEE; size: 1px;">
+    <div class="footer">
+        <div class="container-web">
+            <div style="padding-top: 15px" class="footer-main">
+                <div class="service footer1">
+                    <ul>
+                        <li>
+                            <div class="sales">
+                                <h5>Liên kết</h5>
+                                <p><a href="#">Khóa học khuyến mại</a></p>
+                                <p><a href="#">Khóa học nổi bật</a></p>
+                                <p><a href="#">Tất cả khóa học</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Hỗ trợ</h5>
+                                <p><a href="index.html">Trang chủ</a></p>
+                                <p><a href="#">Khóa học</a></p>
+                                <p><a href="#">Tin tức</a></p>
+                                <p><a href="introduce.html">Giới thiệu</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Dịch vụ</h5>
+                                <p><a href="#">Tìm kiếm</a></p>
+                                <p><a href="introduce.html">Giới thiệu</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sales">
+                                <h5>Liên hệ</h5>
+                                <a style="color:#fff" href="#"><i class="fa fa-phone"> 0352463862</i>
+                                    <p>Đ/C: Mỹ Hào - Hưng Yên</p>
+                                    <p><i class="far fa-envelope"></i>TN05@gmail.com</p>
+                                </a>
+                            </div>
+                            <div id="icon-footer">
+                                <a class="_blank" href="https://www.facebook.com/thao.nguyen.857201" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fa fa-rss"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-youtube"></i></a>
+                                <a class="_blank" href="/#" target="_blank"><i class="fab fa-google-plus-g"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right">
+            <div class="container-web">
+                <p style="text-align: center; color: #444444;">Copyright © 2025 by
+                    <a href="https://www.facebook.com/thao.nguyen.857201">Thảo Nguyên</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hiển thị thời gian đặt hàng
+        document.addEventListener("DOMContentLoaded", function () {
+            const now = new Date();
+            const timeStr = now.toLocaleString("vi-VN");
+            document.getElementById("orderTime").textContent = timeStr;
+        });
+    </script>
+</body>
+
+</html>

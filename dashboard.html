@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="admin.css">
+    <title>ADMIN TN05 - Trang Quản Trị</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Segoe UI',sans-serif;background:#f4f6f9;}
+        .wrapper{display:flex;min-height:100vh;}
+        .sidebar{position:fixed;top:0;left:0;width:260px;height:100%;background:#2c3e50;color:white;padding:20px 0;box-shadow:5px 0 15px rgba(0,0,0,0.1);overflow-y:auto;}
+        .sidebar h2{text-align:center;padding:20px;background:#1abc9c;margin:0 0 30px 0;font-size:22px;}
+        .sidebar a{display:block;padding:15px 25px;color:#bdc3c7;text-decoration:none;font-size:16px;border-radius:10px;margin:8px 10px;transition:0.3s;}
+        .sidebar a:hover,.sidebar a.active{background:#e74c3c;color:white;transform:translateX(10px);}
+        .sidebar a i{margin-right:12px;}
+        .main{margin-left:260px;padding:40px;width:calc(100% - 260px);}
+        .header{background:white;padding:20px 30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1);display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;}
+        .header h1{color:#2c3e50;font-size:28px;}
+        .content{display:none;background:white;padding:30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1);}
+        .content.active{display:block;}
+        .search-bar{display:flex;margin-bottom:25px;}
+        .search-bar input{flex:1;padding:15px;border:2px solid #ddd;border-radius:10px 0 0 10px;font-size:16px;outline:none;}
+        .search-bar button{background:#e74c3c;color:white;border:none;padding:0 30px;border-radius:0 10px 10px 0;cursor:pointer;font-weight:bold;}
+        table{width:100% !important;border-collapse:collapse;margin-top:20px;}
+        th{background:#3498db;color:white;padding:18px;text-align:center;}
+        td{padding:20px;text-align:center;border-bottom:1px solid #eee;word-wrap:break-word;}
+        .btn{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;color:white;font-weight:bold;margin:0 5px;}
+        .btn-edit{background:#f39c12;}
+        .btn-delete{background:#e74c3c;}
+        .btn-add{background:#27ae60;padding:15px 30px;border-radius:50px;font-size:18px;}
+        .course-img{width:60px;height:60px;object-fit:cover;border-radius:10px;}
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px;margin:30px 0;}
+        .stat-box{background:white;padding:30px;border-radius:15px;box-shadow:0 6px 20px rgba(0,0,0,0.1);text-align:center;}
+        .stat-box h3{font-size:45px;color:#e67e22;margin:10px 0;font-weight:bold;}
+        .stat-box p{font-size:18px;color:#7f8c8d;}
+        h2{color:#2c3e50;border-bottom:3px solid #1abc9c;padding-bottom:10px;margin-bottom:20px;}
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="sidebar">
+        <h2><i class="fas fa-user-shield"></i> ADMIN TN05</h2>
+        <a href="#" onclick="showTab('dashboard')" class="active"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="#" onclick="showTab('khoahoc')"><i class="fas fa-book"></i> Quản lý Khóa học</a>
+        <a href="#" onclick="showTab('hocvien')"><i class="fas fa-users"></i> Quản lý Học viên</a>
+        <a href="#" onclick="showTab('donhang')"><i class="fas fa-shopping-cart"></i> Quản lý Đơn hàng</a>
+        <a href="#" onclick="showTab('thongke')"><i class="fas fa-chart-line"></i> Thống kê Doanh thu</a>
+        <a href="index.html"><i class="fas fa-sign-out-alt"></i> Về trang chủ</a>
+    </div>
+
+    <div class="main">
+        <div class="header">
+            <h1>Dashboard Tổng Quan</h1>
+            <div>Chào Admin <strong>Thảo Nguyên</strong> | <span id="clock"></span></div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard" class="content active">
+            <h2>Dashboard Tổng Quan</h2>
+            <div class="stats">
+                <div class="stat-box"><h3 id="total-khoahoc">0</h3><p>Tổng khóa học</p></div>
+                <div class="stat-box"><h3 id="total-hocvien">0</h3><p>Tổng học viên</p></div>
+                <div class="stat-box"><h3 id="total-donhang">0</h3><p>Đơn hàng hôm nay</p></div>
+                <div class="stat-box"><h3 id="total-doanhthu">0</h3><p>Doanh thu tháng (triệu)</p></div>
+            </div>
+        </div>
+
+        <!-- QUẢN LÝ KHÓA HỌC -->
+        <div id="khoahoc" class="content">
+            <h2>Quản lý Khóa học</h2>
+            <button class="btn-add" onclick="themKhoaHoc()">+ Thêm khóa học</button>
+            <div class="search-bar">
+                <input type="text" id="search-khoahoc" placeholder="Tìm tên khóa học..." onkeyup="timKhoaHoc()">
+                <button onclick="timKhoaHoc()">Tìm kiếm</button>
+            </div>
+            <table>
+                <thead><tr><th>ID</th><th>Hình ảnh</th><th "justify-content:left">Tên khóa học</th><th>Giá hiện tại</th><th>Giá cũ</th><th>Hành động</th></tr></thead>
+                <tbody id="list-khoahoc"></tbody>
+            </table>
+        </div>
+
+        <!-- QUẢN LÝ HỌC VIÊN -->
+        <div id="hocvien" class="content">
+            <h2>Quản lý Học viên</h2>
+            <div class="search-bar">
+                <input type="text" id="search-hocvien" placeholder="Tìm tên hoặc khóa học..." onkeyup="timHocVien()">
+                <button onclick="timHocVien()">Tìm kiếm</button>
+            </div>
+            <table>
+                <thead><tr><th>ID</th><th>Họ tên</th><th "justify-content:left">Khóa học</th><th>Ngày đăng ký</th></tr></thead>
+                <tbody id="list-hocvien"></tbody>
+            </table>
+        </div>
+
+        <!-- QUẢN LÝ ĐƠN HÀNG -->
+        <div id="donhang" class="content">
+            <h2>Quản lý Đơn hàng</h2>
+            <div class="search-bar">
+                <input type="text" id="search-donhang" placeholder="Tìm tên, khóa học hoặc ngày..." onkeyup="timDonHang()">
+                <button onclick="timDonHang()">Tìm kiếm</button>
+            </div>
+            <table>
+                <thead>
+    <tr>
+        <th style="width:60px;">STT</th>
+        <th style="width:120px;">Mã đơn</th>
+        <th>Họ tên</th>
+        <th>Khóa học</th>
+        <th style="text-align:right;width:160px;">Giá tiền</th>
+        <th style="text-align:center;width:120px;">Ngày đặt</th>
+    </tr>
+</thead>
+                <tbody id="list-donhang"></tbody>
+            </table>
+        </div>
+
+      <!-- THỐNG KÊ DOANH THU -->
+<div id="thongke" class="content">
+    <h2>Thống kê Doanh thu</h2>
+    <p style="color:green;font-weight:bold;">→ Doanh thu tự động cập nhật từ đơn hàng!</p>
+    
+    <div class="search-bar">
+        <input type="text" id="search-thongke" placeholder="Tìm theo ngày (vd: 6/12/2025)..." onkeyup="timThongKe()">
+        <button onclick="timThongKe()">Tìm kiếm</button>
+    </div>
+
+    <!-- BIỂU ĐỒ SIÊU ĐẸP -->
+    <div style="background:white;padding:20px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1);margin:30px 0;">
+        <canvas id="chartDoanhThu" height="120"></canvas>
+    </div>
+
+    <!-- BẢNG DOANH THU -->
+    <table>
+        <thead>
+            <tr>
+                <th style="width:80px;">STT</th>
+                <th>Ngày</th>
+                <th style="text-align:right;">Doanh thu (triệu)</th>
+            </tr>
+        </thead>
+        <tbody id="list-thongke"></tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Đồng hồ
+setInterval(() => document.getElementById("clock").innerText = new Date().toLocaleString('vi-VN'), 1000);
+
+// Chuyển tab
+function showTab(tab) {
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+    document.getElementById(tab).classList.add('active');
+    document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    if (tab === 'dashboard') capNhatDashboard();
+    if (tab === 'khoahoc') loadKhoaHoc();
+    if (tab === 'hocvien') loadHocVien();
+    if (tab === 'donhang') loadDonHang();
+    if (tab === 'thongke') loadThongKe();
+}
+
+// ==================== QUẢN LÝ KHÓA HỌC - THÊM SỬA XÓA ====================
+function loadKhoaHoc(filter = "") {
+    let ds = JSON.parse(localStorage.getItem("khoahoc") || "[]");
+    if (filter) ds = ds.filter(k => k.ten.toLowerCase().includes(filter.toLowerCase()));
+    
+    document.getElementById("list-khoahoc").innerHTML = ds.map((k, i) => `
+        <tr>
+            <td><strong>${i+1}</strong></td>
+            <td><img src="${k.img || 'default.jpg'}" class="course-img"></td>
+            <td><strong>${k.ten}</strong></td>
+            <td style="color:#e67e22;font-weight:bold;">${k.gia.toLocaleString()}đ</td>
+            <td><del>${k.giam.toLocaleString()}đ</del></td>
+            <td>
+                <button class="btn btn-edit" onclick="suaKhoaHoc(${k.id})">Sửa</button>
+                <button class="btn btn-delete" onclick="xoaKhoaHoc(${k.id})">Xóa</button>
+            </td>
+        </tr>
+    `).join("") || "<tr><td colspan='6' style='text-align:center;padding:80px;color:#999;'>Chưa có khóa học</td></tr>";
+}
+function timKhoaHoc() { loadKhoaHoc(document.getElementById("search-khoahoc").value.trim()); }
+
+function themKhoaHoc() {
+    const ten = prompt("Tên khóa học:");
+    const gia = parseInt(prompt("Giá hiện tại (VNĐ):"));
+    const giam = parseInt(prompt("Giá gốc (VNĐ):"));
+    const img = prompt("Link ảnh (tùy chọn):") || "default.jpg";
+    if (ten && gia > 0) {
+        let ds = JSON.parse(localStorage.getItem("khoahoc") || "[]");
+        const id = Date.now();
+        ds.push({ id, ten, gia, giam, img });
+        localStorage.setItem("khoahoc", JSON.stringify(ds));
+        loadKhoaHoc();
+        capNhatDashboard();
+        alert("Thêm khóa học thành công!");
+    }
+}
+
+function suaKhoaHoc(id) {
+    let ds = JSON.parse(localStorage.getItem("khoahoc") || "[]");
+    const k = ds.find(x => x.id === id);
+    if (!k) return alert("Không tìm thấy khóa học!");
+    
+    const ten = prompt("Tên khóa học mới:", k.ten);
+    const gia = parseInt(prompt("Giá hiện tại mới:", k.gia));
+    const giam = parseInt(prompt("Giá gốc mới:", k.giam));
+    const img = prompt("Link ảnh mới:", k.img);
+    
+    if (ten && gia > 0) {
+        k.ten = ten;
+        k.gia = gia;
+        k.giam = giam || k.giam;
+        k.img = img || k.img;
+        localStorage.setItem("khoahoc", JSON.stringify(ds));
+        loadKhoaHoc();
+        alert("Sửa thành công!");
+    }
+}
+
+function xoaKhoaHoc(id) {
+    if (!confirm("Xóa khóa học này?")) return;
+    let ds = JSON.parse(localStorage.getItem("khoahoc") || "[]");
+    ds = ds.filter(x => x.id !== id);
+    localStorage.setItem("khoahoc", JSON.stringify(ds));
+    loadKhoaHoc();
+    capNhatDashboard();
+}
+
+// ==================== HỌC VIÊN - TÌM KIẾM  ====================
+function loadHocVien(filter = "") {
+    let ds = JSON.parse(localStorage.getItem("hocvien") || "[]");
+    if (filter) {
+        const f = filter.toLowerCase();
+        ds = ds.filter(h => h.ten.toLowerCase().includes(f) || h.khoa.toLowerCase().includes(f));
+    }
+    document.getElementById("list-hocvien").innerHTML = ds.map((h, i) => `
+        <tr>
+            <td><strong>${i+1}</strong></td>
+            <td><strong>${h.ten}</strong></td>
+            <td>${h.khoa}</td>
+            <td>${h.ngay}</td>
+        </tr>
+    `).join("") || "<tr><td colspan='4' style='text-align:center;padding:80px;color:#999;'>Chưa có học viên</td></tr>";
+}
+function timHocVien() { loadHocVien(document.getElementById("search-hocvien").value.trim()); }
+
+// ==================== ĐƠN HÀNG  ====================
+function loadDonHang(filter = "") {
+    let ds = JSON.parse(localStorage.getItem("donhang") || "[]");
+    
+    // Bỏ đơn rác
+    ds = ds.filter(d => d.gia > 0 && d.ten && d.ten.trim() !== "");
+    
+    // TÌM KIẾM SIÊU MẠNH: tên, khóa học, ngày, giá tiền
+    if (filter) {
+        const f = filter.toLowerCase().trim();
+        const isNumber = !isNaN(f.replace(/[^0-9]/g, '')) && f !== "";
+        
+        ds = ds.filter(d => {
+            const ten = d.ten.toLowerCase();
+            const khoa = d.khoa.toLowerCase();
+            const ngay = d.ngay;
+            const giaStr = d.gia.toString();
+            
+            return ten.includes(f) || 
+                   khoa.includes(f) || 
+                   ngay.includes(f) || 
+                   (isNumber && giaStr.includes(f.replace(/[^0-9]/g, '')));
+        });
+    }
+    
+    // Sắp xếp mới nhất trước
+    ds.sort((a,b) => new Date(b.ngay.split('/').reverse().join('-')) - new Date(a.ngay.split('/').reverse().join('-')));
+    
+    // Render bảng ĐẸP HOÀN HẢO
+    document.getElementById("list-donhang").innerHTML = ds.map((d, i) => `
+        <tr>
+            <td style="text-align:center;"><strong>${i+1}</strong></td>
+            <td style="text-align:center;"><strong style="color:#e67e22;font-size:15px;">DH${String(i+1).padStart(3,'0')}</strong></td>
+            <td style="text-align:left;padding-left:15px;"><strong>${d.ten}</strong></td>
+            <td style="text-align:left;">${d.khoa}</td>
+            <td style="text-align:right;color:#27ae60;font-weight:bold;font-size:18px;padding-right:25px;">
+                ${d.gia.toLocaleString()}đ
+            </td>
+            <td style="text-align:center;color:#2c3e50;font-weight:600;">${d.ngay}</td>
+        </tr>
+    `).join("") || 
+    `<tr><td colspan="6" style="text-align:center;padding:100px 0;color:#999;font-size:20px;">
+        <i class="fas fa-box-open" style="font-size:50px;color:#ddd;margin-bottom:15px;display:block;"></i>
+        Chưa có đơn hàng nào
+    </td></tr>`;
+}
+
+// Tìm kiếm
+function timDonHang() {
+    const keyword = document.getElementById("search-donhang")?.value.trim() || "";
+    loadDonHang(keyword);
+}
+
+// ==================== THỐNG KÊ - ĐỒNG BỘ NGÀY ĐÚNG ĐỊNH DẠNG ====================
+function loadThongKe(filter = "") {
+    let ds = JSON.parse(localStorage.getItem("thongke") || "[]");
+    
+    if (filter) ds = ds.filter(t => t.ngay.includes(filter));
+    
+    ds.sort((a,b) => new Date(b.ngay.split('/').reverse().join('-')) - new Date(a.ngay.split('/').reverse().join('-')));
+    
+    document.getElementById("list-thongke").innerHTML = ds.map((t, i) => `
+        <tr>
+            <td><strong>${i+1}</strong></td>
+            <td><strong>${t.ngay}</strong></td>
+            <td style="text-align:right;color:#e67e22;font-weight:bold;font-size:18px;">${t.doanhthu.toFixed(3)} triệu</td>
+        </tr>
+    `).join("") || "<tr><td colspan='3' style='text-align:center;padding:60px;color:#999;'>Chưa có dữ liệu doanh thu</td></tr>";
+
+    const ctx = document.getElementById("chartDoanhThu");
+    if (!ctx) return;
+    
+    const labels = ds.map(t => t.ngay);
+    const data = ds.map(t => t.doanhthu);
+    
+    if (window.myChart) window.myChart.destroy();
+    window.myChart = new Chart(ctx.getContext("2d"), {
+        type: "bar",
+        data: {
+            labels: labels.length ? labels : ["Chưa có"],
+            datasets: [{
+                label: "Doanh thu (triệu)",
+                data: data.length ? data : [0],
+                backgroundColor: "#e67e22",
+                borderRadius: 12,
+                barThickness: 50
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+}
+function timThongKe() { loadThongKe(document.getElementById("search-thongke").value.trim()); }
+
+// Cập nhật Dashboard
+function capNhatDashboard() {
+    const khoahoc = JSON.parse(localStorage.getItem("khoahoc") || "[]").length;
+    const hocvien = JSON.parse(localStorage.getItem("hocvien") || "[]").length;
+    const donhang = JSON.parse(localStorage.getItem("donhang") || "[]").filter(d => d.gia > 0);
+    const today = new Date().toLocaleDateString('vi-VN');
+    const todayOrders = donhang.filter(d => d.ngay === today).length;
+    const monthRevenue = donhang.reduce((s, d) => s + d.gia, 0) / 1000000;
+
+    document.getElementById("total-khoahoc").innerText = khoahoc;
+    document.getElementById("total-hocvien").innerText = hocvien;
+    document.getElementById("total-donhang").innerText = todayOrders;
+    document.getElementById("total-doanhthu").innerText = monthRevenue.toFixed(3);
+}
+// ==================== KHỞI TẠO DỮ LIỆU 15 SẢN PHẨM (BẢN ĐẦY ĐỦ) ====================
+function khoiTaoDuLieu() {
+    // ⚠️ XÓA TẤT CẢ DỮ LIỆU CŨ VÀ KHỞI TẠO MỚI
+    const duLieu15SanPham = [
+        { id: 1, ten: "Khóa học Python - cơ bản", gia: 599000, giam: 900000, img: "6.jpg" },
+        { id: 2, ten: "Khóa học C# cho người mới bắt đầu", gia: 499000, giam: 700000, img: "5.jpg" },
+        { id: 3, ten: "Lập trình C++ cơ bản", gia: 499000, giam: 720000, img: "3.jpg" },
+        { id: 4, ten: "Khóa học SQL - cơ bản", gia: 999000, giam: 1500000, img: "1.jpg" },
+        { id: 5, ten: "Khóa học JavaScript cho người mới", gia: 500000, giam: 800000, img: "2.jpg" },
+        { id: 6, ten: "Khóa học C# - cơ bản", gia: 299000, giam: 500000, img: "7.jpg" },
+        { id: 7, ten: "Khóa học truyền thông và mạng máy tính", gia: 800000, giam: 1000000, img: "4.jpg" },
+        { id: 8, ten: "Thiết kế UI/UX", gia: 450000, giam: 800000, img: "8.jpg" },
+        { id: 9, ten: "Khóa học Python - nâng cao", gia: 799000, giam: 1250000, img: "11.jpg" },
+        { id: 10, ten: "Khóa học C# - nâng cao", gia: 1000000, giam: 1300000, img: "13.jpg" },
+        { id: 11, ten: "Khóa học SQL - nâng cao", gia: 999000, giam: 1520000, img: "12.jpg" },
+        { id: 12, ten: "Thiết kế web cơ bản", gia: 699000, giam: 1200000, img: "9.jpg" },
+        { id: 13, ten: "Khóa học C++ - nâng cao", gia: 999000, giam: 1200000, img: "15.jpg" },
+        { id: 14, ten: "Khóa học HTML-CSS-JS nâng cao", gia: 1299000, giam: 1900000, img: "14.jpg" },
+        { id: 15, ten: "Khóa học Python hướng đối tượng(OOP)", gia: 599000, giam: 1100000, img: "10.jpg" }
+    ];
+    
+    localStorage.setItem("khoahoc", JSON.stringify(duLieu15SanPham));
+    console.log("✅ Đã khởi tạo 15 sản phẩm mới!");
+}
+
+khoiTaoDuLieu();
+
+// Load khi mở trang
+window.onload = () => {
+    capNhatDashboard();
+    loadKhoaHoc();
+    loadHocVien();
+    loadDonHang();
+    loadThongKe();
+    showTab('dashboard');
+};
+
+// Realtime
+window.addEventListener("storage", () => {
+    capNhatDashboard();
+    if (document.querySelector("#donhang.active")) loadDonHang();
+    if (document.querySelector("#thongke.active")) loadThongKe();
+});
+</script>
+</body>
+</html>
